@@ -1,6 +1,6 @@
 "use client";
 import { useGetPokemons, useGetPokemonData } from "@/hooks/usePokemons";
-import PokemonFrame from "@/components/pokemo-frame";
+import PokemonFrame from "@/components/pokemon-frame";
 
 export default function Home() {
   const { data: pokemons, isFetching: isFetchingPokemons } = useGetPokemons();
