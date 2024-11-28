@@ -1,21 +1,38 @@
 import Image from "next/image";
+import { pokemonTypeColors } from "@/utils/pokemon-types";
 
-interface Pokemon {
+interface PokemonFrameProps {
   src: string;
   name: string;
+  types: Array<{ type: { name: string } }>;
 }
 
-const PokemonFrame = ({ pokemon }: { pokemon: Pokemon }) => {
+const PokemonFrame = ({ pokemon }: { pokemon: PokemonFrameProps }) => {
+  const bgColor = pokemon.types[0]?.type?.name
+    ? pokemonTypeColors[pokemon.types[0].type.name]
+    : "gold";
   return (
-    <div className="ml-5 mt-5 h-80 w-full rounded border bg-gold p-2">
+    <div
+      className="ml-5 mt-5 h-96 w-64 rounded p-2"
+      style={{ backgroundColor: bgColor }}
+    >
+      <p className="text-black">
+        {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+      </p>
       <Image
-        className="m-auto h-44 w-44 object-cover"
+        className="h-56 w-full border border-black object-cover"
         src={pokemon.src}
         alt={pokemon.name}
         width={400}
         height={400}
       />
-      <p className="text-center text-deepShadePurple">{pokemon.name}</p>
+      {pokemon.types.map((type) => {
+        return (
+          <>
+            <p>{type.type.name}</p>
+          </>
+        );
+      })}
     </div>
   );
 };
